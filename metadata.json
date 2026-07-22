@@ -1,0 +1,6 @@
+{
+  "name": "Max AI",
+  "description": "Flagship premium 3D landing website for Max AI, featuring cinematic scrolling, immersive animations, interactive canvas orb, and futuristic dark-themed experiences.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
