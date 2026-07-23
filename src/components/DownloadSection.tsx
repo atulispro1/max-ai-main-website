@@ -7,88 +7,46 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useSound } from "../hooks/useSound";
 import { Magnetic } from "./Cursor";
-import { Download, Monitor, Smartphone, CheckCircle, RefreshCw, Cpu, Database, Info } from "lucide-react";
+import { Download, Monitor, Smartphone, CheckCircle, RefreshCw, Cpu, Database, Info, Globe, ShieldCheck, ArrowRight } from "lucide-react";
 
-interface PlatformConfig {
-  id: "windows" | "android";
-  title: string;
-  filename: string;
-  fileSize: string;
-  osVersion: string;
-  icon: any;
-  specs: string[];
-  color: string;
-  glowColor: string;
+const DIRECT_WINDOWS_DOWNLOAD_URL = "https://github.com/atulispro1/max-ai-main-website/releases/download/v1.0.0/Max.AI.Setup.1.0.0.exe";
+const DIRECT_WEB_URL = "https://max-ai-atulsapp.vercel.app/";
+
+interface DownloadSectionProps {
+  onNavigatePage?: (page: "home" | "download-windows" | "download-android") => void;
 }
 
-const PLATFORMS: PlatformConfig[] = [
-  {
-    id: "windows",
-    title: "Download for Windows",
-    filename: "MaxAI_Setup_v2.6.0_x64.msi",
-    fileSize: "142 MB",
-    osVersion: "Windows 10 / 11 (64-bit)",
-    icon: Monitor,
-    specs: ["8GB RAM Minimum", "DX12 compatible CPU", "2GB disk space"],
-    color: "from-brand-purple to-brand-cyan",
-    glowColor: "rgba(156,84,255,0.4)",
-  },
-  {
-    id: "android",
-    title: "Download for Android",
-    filename: "MaxAI_Mobile_v2.6.0_arm64.apk",
-    fileSize: "58 MB",
-    osVersion: "Android 11.0 or higher",
-    icon: Smartphone,
-    specs: ["4GB RAM Minimum", "Snapdragon / MediaTek NPU", "60MB free storage"],
-    color: "from-brand-cyan to-emerald-400",
-    glowColor: "rgba(0,240,255,0.4)",
-  },
-];
+export function DownloadSection({ onNavigatePage }: DownloadSectionProps) {
+  const { playHover, playClick } = useSound();
 
-export function DownloadSection() {
-  const { playHover, playClick, playSuccess, playDownload } = useSound();
-  const [downloadingId, setDownloadingId] = useState<"windows" | "android" | null>(null);
-  const [downloadProgress, setDownloadProgress] = useState(0);
-  const [downloadSpeed, setDownloadSpeed] = useState("0 MB/s");
-  const [completedId, setCompletedId] = useState<"windows" | "android" | null>(null);
-
-  // Simulated download loop
-  const triggerDownload = (id: "windows" | "android") => {
-    if (downloadingId) return; // Prevent double trigger
+  const handleWindowsClick = () => {
     playClick();
-    setDownloadingId(id);
-    setDownloadProgress(0);
-    setCompletedId(null);
+    if (onNavigatePage) {
+      onNavigatePage("download-windows");
+    } else {
+      window.location.hash = "#download-windows";
+    }
+  };
 
-    let progress = 0;
-    const timer = setInterval(() => {
-      // Simulate erratic connection speed
-      const speed = (Math.random() * 25 + 15).toFixed(1);
-      setDownloadSpeed(`${speed} MB/s`);
+  const handleAndroidClick = () => {
+    playClick();
+    if (onNavigatePage) {
+      onNavigatePage("download-android");
+    } else {
+      window.location.hash = "#download-android";
+    }
+  };
 
-      progress += Math.floor(Math.random() * 8 + 4);
-      if (progress >= 100) {
-        progress = 100;
-        clearInterval(timer);
-        setDownloadProgress(100);
-        setTimeout(() => {
-          setDownloadingId(null);
-          setCompletedId(id);
-          playSuccess();
-        }, 400);
-      } else {
-        setDownloadProgress(progress);
-        playDownload(); // Short synthesis bleep
-      }
-    }, 180);
+  const handleWebClick = () => {
+    playClick();
+    window.location.href = DIRECT_WEB_URL;
   };
 
   return (
-    <section id="download" className="py-28 relative overflow-hidden">
+    <section id="download" className="py-28 relative overflow-hidden bg-gradient-to-b from-transparent via-[#030308]/40 to-transparent">
       {/* Background gradients */}
-      <div className="absolute top-[40%] left-[20%] w-[500px] h-[500px] rounded-full bg-brand-cyan/5 blur-[130px]" />
-      <div className="absolute bottom-[10%] right-[10%] w-[400px] h-[400px] rounded-full bg-brand-purple/5 blur-[120px]" />
+      <div className="absolute top-[40%] left-[20%] w-[500px] h-[500px] rounded-full bg-brand-cyan/5 blur-[130px] pointer-events-none" />
+      <div className="absolute bottom-[10%] right-[10%] w-[400px] h-[400px] rounded-full bg-brand-purple/5 blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
@@ -98,157 +56,192 @@ export function DownloadSection() {
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-purple/30 bg-brand-purple/5 text-xs text-brand-purple glow-text-purple font-mono uppercase tracking-wider mb-4"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-purple/30 bg-brand-purple/10 text-xs text-brand-purple glow-text-purple font-mono uppercase tracking-wider mb-4 font-bold"
           >
             <Download className="w-3.5 h-3.5" />
-            STABLE PRODUCTION RELEASES
+            OFFICIAL STABLE RELEASES
           </motion.div>
+          
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl md:text-5xl font-display font-bold tracking-tight mb-4"
+            className="text-4xl md:text-5xl font-display font-bold tracking-tight mb-4 text-white"
           >
             Get Max AI Today
           </motion.h2>
+          
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg text-slate-400"
+            className="text-lg text-slate-400 font-light"
           >
-            Deploy local, zero-knowledge contextual computing directly to your machine. Support for high-performance desktop VM execution and mobile voice arrays.
+            Deploy native local spatial intelligence directly on your device. High-performance Electron desktop VM container execution and Web app connectivity.
           </motion.p>
         </div>
 
-        {/* Platforms grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {PLATFORMS.map((platform) => {
-            const Icon = platform.icon;
-            const isDownloading = downloadingId === platform.id;
-            const isCompleted = completedId === platform.id;
+        {/* 3 Main Action Platform Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          
+          {/* CARD 1: WINDOWS DESKTOP (Flagship - Most Highlighted) */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            onMouseEnter={() => playHover()}
+            className="interactive-card glass-panel rounded-3xl p-8 border border-indigo-500/30 bg-slate-950/60 relative overflow-hidden flex flex-col justify-between h-[460px] shadow-[0_0_40px_rgba(99,102,241,0.15)] group"
+          >
+            <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400" />
+            
+            <div>
+              <div className="flex justify-between items-start mb-6">
+                <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 shadow-[0_0_20px_rgba(99,102,241,0.2)]">
+                  <Monitor className="w-8 h-8" />
+                </div>
+                <div className="text-right font-mono text-xs space-y-1">
+                  <span className="text-emerald-400 font-bold uppercase tracking-wider bg-emerald-500/10 px-2.5 py-1 rounded-md border border-emerald-500/30 inline-block">
+                    STABLE v1.0.0
+                  </span>
+                  <div className="text-slate-400 text-[11px] mt-1">142 MB • Windows Setup</div>
+                </div>
+              </div>
 
-            return (
-              <motion.div
-                key={platform.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                onMouseEnter={() => playHover()}
-                className="interactive-card glass-panel rounded-3xl p-8 border border-white/5 bg-slate-950/40 relative overflow-hidden flex flex-col justify-between h-[450px]"
+              <h3 className="text-2xl font-display font-bold text-white mb-2 text-left">
+                Download for Windows
+              </h3>
+              
+              <p className="text-xs text-slate-400 text-left leading-relaxed mb-6 font-sans font-light">
+                The flagship Max AI application. Complete native OS control, 30+ app launcher, multi-monitor screen vision, & floating 3D orb widget.
+              </p>
+
+              <div className="space-y-2 border-t border-white/10 pt-4 text-left font-mono text-xs text-slate-400">
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="w-3.5 h-3.5 text-indigo-400" />
+                  <span>SHA-256 Verified Security</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Cpu className="w-3.5 h-3.5 text-indigo-400" />
+                  <span>Windows 10 & Windows 11 (64-bit)</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-auto pt-6">
+              <Magnetic className="w-full">
+                <button
+                  onClick={handleWindowsClick}
+                  className="w-full py-4 rounded-xl font-display font-bold text-sm uppercase tracking-wider text-white bg-gradient-to-r from-indigo-500 via-purple-600 to-indigo-600 hover:opacity-95 transition-all duration-300 shadow-[0_0_25px_rgba(99,102,241,0.4)] flex items-center justify-center gap-2 cursor-pointer border border-white/10"
+                >
+                  <Download className="w-4 h-4" />
+                  <span>Download for Windows</span>
+                </button>
+              </Magnetic>
+            </div>
+          </motion.div>
+
+          {/* CARD 2: USE ON WEB */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            onMouseEnter={() => playHover()}
+            className="interactive-card glass-panel rounded-3xl p-8 border border-white/10 bg-slate-950/40 relative overflow-hidden flex flex-col justify-between h-[460px] hover:border-cyan-500/30 transition-all duration-300 group"
+          >
+            <div>
+              <div className="flex justify-between items-start mb-6">
+                <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+                  <Globe className="w-8 h-8" />
+                </div>
+                <span className="text-cyan-400 font-bold uppercase tracking-wider bg-cyan-500/10 px-2.5 py-1 rounded-md border border-cyan-500/30 text-xs font-mono">
+                  LIVE CLOUD
+                </span>
+              </div>
+
+              <h3 className="text-2xl font-display font-bold text-white mb-2 text-left">
+                Use on Web
+              </h3>
+              
+              <p className="text-xs text-slate-400 text-left leading-relaxed mb-6 font-sans font-light">
+                Instant access directly in your browser. Experience Gemini 3.1 Flash/Pro chat, WebSocket Live audio, & document parsing without installing.
+              </p>
+
+              <div className="space-y-2 border-t border-white/10 pt-4 text-left font-mono text-xs text-slate-400">
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>No Installation Required</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Database className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>Supabase Cloud Sync</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-auto pt-6">
+              <Magnetic className="w-full">
+                <button
+                  onClick={handleWebClick}
+                  className="w-full py-4 rounded-xl font-display font-bold text-sm uppercase tracking-wider text-black bg-white hover:bg-slate-200 transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.15)] flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <Globe className="w-4 h-4 text-black" />
+                  <span>Launch Web App</span>
+                </button>
+              </Magnetic>
+            </div>
+          </motion.div>
+
+          {/* CARD 3: DOWNLOAD FOR ANDROID */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            onMouseEnter={() => playHover()}
+            className="interactive-card glass-panel rounded-3xl p-8 border border-white/10 bg-slate-950/40 relative overflow-hidden flex flex-col justify-between h-[460px] hover:border-emerald-500/30 transition-all duration-300 group"
+          >
+            <div>
+              <div className="flex justify-between items-start mb-6">
+                <div className="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
+                  <Smartphone className="w-8 h-8" />
+                </div>
+                <span className="text-amber-400 font-bold uppercase tracking-wider bg-amber-500/10 px-2.5 py-1 rounded-md border border-amber-500/30 text-xs font-mono">
+                  LAUNCHING SOON
+                </span>
+              </div>
+
+              <h3 className="text-2xl font-display font-bold text-white mb-2 text-left">
+                Download for Android
+              </h3>
+              
+              <p className="text-xs text-slate-400 text-left leading-relaxed mb-6 font-sans font-light">
+                Under active optimization with Expo React Native. Features mobile camera AI vision, SVG/3D animated avatars, & Android app intent launchers.
+              </p>
+
+              <div className="space-y-2 border-t border-white/10 pt-4 text-left font-mono text-xs text-slate-400">
+                <div className="flex items-center gap-2">
+                  <Cpu className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Android 11.0 or Higher</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Smartphone className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Native App Intent Bridge</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-auto pt-6">
+              <button
+                onClick={handleAndroidClick}
+                className="w-full py-4 rounded-xl font-display font-bold text-sm uppercase tracking-wider text-slate-200 bg-white/[0.05] border border-white/10 hover:bg-white/10 hover:text-white transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
               >
-                {/* Visual Glow Sweep */}
-                <div
-                  className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-brand-purple to-transparent opacity-30 group-hover:opacity-100 transition-opacity duration-500"
-                />
+                <Smartphone className="w-4 h-4 text-amber-400" />
+                <span>View Android Status</span>
+              </button>
+            </div>
+          </motion.div>
 
-                {/* Platform Header */}
-                <div>
-                  <div className="flex justify-between items-start mb-6">
-                    <div className="p-4 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-200">
-                      <Icon className="w-8 h-8" />
-                    </div>
-                    <div className="text-right font-mono text-xs text-slate-500 space-y-1">
-                      <div className="text-brand-cyan font-bold uppercase tracking-widest bg-brand-cyan/10 px-2 py-0.5 rounded border border-brand-cyan/20 inline-block">
-                        BUILD v2.6.0
-                      </div>
-                      <div className="mt-1">{platform.fileSize}</div>
-                    </div>
-                  </div>
-
-                  <h3 className="text-2xl font-display font-bold text-white mb-2 text-left">
-                    {platform.title}
-                  </h3>
-                  
-                  {/* File Metadata */}
-                  <div className="flex items-center gap-1.5 text-xs text-slate-400 font-mono mb-6 text-left">
-                    <Info className="w-3.5 h-3.5 text-slate-500" />
-                    <span>File: <strong className="text-slate-300 font-medium">{platform.filename}</strong></span>
-                  </div>
-
-                  {/* Requirements List */}
-                  <div className="space-y-2.5 mb-8 border-t border-b border-white/5 py-5 text-left">
-                    <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider font-bold block mb-1">
-                      MINIMUM SYSTEM REQUIREMENTS
-                    </span>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-sans text-slate-400">
-                      <div className="flex items-center gap-2">
-                        <Cpu className="w-3.5 h-3.5 text-brand-purple shrink-0" />
-                        <span>{platform.osVersion}</span>
-                      </div>
-                      {platform.specs.map((spec, sIdx) => (
-                        <div key={sIdx} className="flex items-center gap-2">
-                          <Database className="w-3.5 h-3.5 text-brand-cyan shrink-0" />
-                          <span>{spec}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Download Actions */}
-                <div className="mt-auto">
-                  <AnimatePresence mode="wait">
-                    {isDownloading ? (
-                      <motion.div
-                        key="downloading"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="space-y-3"
-                      >
-                        <div className="flex justify-between items-center text-xs font-mono">
-                          <span className="text-brand-cyan flex items-center gap-1.5 uppercase">
-                            <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                            TRANSFERRING BYTES...
-                          </span>
-                          <span className="text-slate-400 font-bold">{downloadProgress}%</span>
-                        </div>
-                        {/* Progress Bar */}
-                        <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-white/5">
-                          <motion.div
-                            initial={{ width: "0%" }}
-                            animate={{ width: `${downloadProgress}%` }}
-                            className="h-full bg-gradient-to-r from-brand-purple to-brand-cyan rounded-full shadow-[0_0_10px_rgba(0,240,255,0.4)]"
-                          />
-                        </div>
-                        <div className="flex justify-between text-[10px] font-mono text-slate-500">
-                          <span>SPEED: {downloadSpeed}</span>
-                          <span>STATION_LOCAL_VM</span>
-                        </div>
-                      </motion.div>
-                    ) : isCompleted ? (
-                      <motion.div
-                        key="completed"
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="flex items-center justify-center gap-2 py-4 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-xl font-mono text-xs uppercase font-bold tracking-widest shadow-[0_0_15px_rgba(16,185,129,0.05)]"
-                      >
-                        <CheckCircle className="w-4 h-4 fill-current text-emerald-400" />
-                        PACKAGE COMPILED STABLE!
-                      </motion.div>
-                    ) : (
-                      <motion.div key="idle" className="w-full">
-                        <Magnetic className="w-full">
-                          <button
-                            onClick={() => triggerDownload(platform.id)}
-                            className="w-full py-4 rounded-xl font-display font-bold text-sm uppercase tracking-wider text-dark-bg bg-white hover:bg-transparent hover:text-white border border-white transition-all duration-300 shadow-[0_0_30px_rgba(255,255,255,0.08)] flex items-center justify-center gap-2 cursor-pointer group-hover:glow-border-purple"
-                          >
-                            <Download className="w-4 h-4 fill-current" />
-                            GET FOR {platform.id === "windows" ? "WINDOWS" : "ANDROID"}
-                          </button>
-                        </Magnetic>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </motion.div>
-            );
-          })}
         </div>
 
       </div>

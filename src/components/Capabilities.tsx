@@ -132,6 +132,9 @@ const FEATURES: FeatureDetail[] = [
   }
 ];
 
+// Touch device check (skip heavy animations on mobile)
+const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+
 // 3D Tilt Feature Card Wrapper
 function FeatureCard({ feature }: { feature: FeatureDetail; key?: string }) {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -146,7 +149,6 @@ function FeatureCard({ feature }: { feature: FeatureDetail; key?: string }) {
     const x = e.clientX - left;
     const y = e.clientY - top;
 
-    // Calculate normalized rotation angle (max 10deg tilt)
     const rx = ((y / height) - 0.5) * -16;
     const ry = ((x / width) - 0.5) * 16;
 
@@ -165,6 +167,14 @@ function FeatureCard({ feature }: { feature: FeatureDetail; key?: string }) {
 
   // Render miniature interactive mock preview per capability
   const renderPreview = () => {
+    // On touch devices, render static preview to reduce animation jank
+    if (isTouchDevice) {
+      return (
+        <div className="h-10 w-full bg-slate-900/40 rounded-lg border border-white/5 flex items-center justify-center">
+          <span className="text-[9px] font-mono text-slate-500 uppercase tracking-wider">{feature.badge}</span>
+        </div>
+      );
+    }
     switch (feature.previewType) {
       case "voice":
         return (
@@ -312,7 +322,7 @@ function FeatureCard({ feature }: { feature: FeatureDetail; key?: string }) {
         rotateY: tilt.y,
       }}
       transition={{ type: "spring", stiffness: 350, damping: 25 }}
-      className="interactive-card glass-panel rounded-2xl p-6 flex flex-col justify-between border border-white/5 glass-panel-hover h-[320px] relative overflow-hidden group select-none cursor-pointer"
+      className="interactive-card glass-panel rounded-2xl p-4 sm:p-6 flex flex-col justify-between border border-white/5 glass-panel-hover h-auto sm:h-[320px] relative overflow-hidden group select-none cursor-pointer"
     >
       {/* Dynamic Background Hover Glow */}
       <div
@@ -391,7 +401,7 @@ export function Capabilities() {
         </div>
 
         {/* Feature Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
           {FEATURES.map((feature) => (
             <FeatureCard key={feature.id} feature={feature} />
           ))}

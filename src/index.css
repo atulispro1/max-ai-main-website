@@ -90,3 +90,43 @@
   animation-play-state: paused;
 }
 
+/* Thin scrollbar for horizontal tables */
+.scrollbar-thin::-webkit-scrollbar {
+  height: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+  border-radius: 4px;
+}
+
+/* Mobile responsive improvements */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+  
+  /* Reduce backdrop blur intensity on mobile for performance */
+  .glass-panel {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* Simpler animations on mobile to reduce jank */
+  .motion-safe\:animate-none {
+    animation: none !important;
+  }
+}
+
+/* xs breakpoint (475px) */
+@media (min-width: 475px) {
+  .xs\:block {
+    display: block;
+  }
+  .xs\:hidden {
+    display: none;
+  }
+}
+

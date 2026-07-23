@@ -11,20 +11,22 @@ export function Backdrop() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
-  // Handle mouse move to shift gradient highlights
+  // Handle mouse move to shift gradient highlights (skip on touch devices)
   useEffect(() => {
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (isTouchDevice) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       if (!containerRef.current) return;
       const { clientX, clientY } = e;
       const { innerWidth, innerHeight } = window;
-      // Convert to normalized coordinates (-1 to 1)
       setMousePos({
         x: (clientX / innerWidth - 0.5) * 40,
         y: (clientY / innerHeight - 0.5) * 40,
       });
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
@@ -61,7 +63,7 @@ export function Backdrop() {
       color: string;
     }
 
-    const starsCount = 60;
+    const starsCount = window.innerWidth < 768 ? 25 : 60;
     const stars: Star[] = [];
 
     // Initialize stars with slightly varying digital tones
