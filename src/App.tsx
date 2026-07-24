@@ -292,12 +292,12 @@ function MainAppContent() {
                       <button
                         onClick={handleCTAWeb}
                         onMouseEnter={() => playHover()}
-                        className="group relative px-8 py-4 bg-gradient-to-r from-indigo-500 via-purple-600 to-orange-500 text-white rounded-full font-bold overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_35px_rgba(99,102,241,0.4)] flex items-center justify-center gap-2.5 cursor-pointer border border-white/10"
+                        className="group relative px-8 py-4 bg-gradient-to-r from-indigo-500 via-purple-600 to-orange-500 text-white rounded-full font-bold overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_35px_rgba(99,102,241,0.4)] flex items-center justify-center gap-2.5 cursor-pointer border border-white/10"
                       >
-                        <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <Globe className="w-4.5 h-4.5" />
+                        <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        <Globe className="w-4.5 h-4.5 shrink-0" />
                         <span>Use on Web</span>
-                        <Sparkles className="w-3.5 h-3.5 text-cyan-300 animate-pulse" />
+                        <Sparkles className="w-3.5 h-3.5 text-cyan-300 animate-pulse shrink-0" />
                       </button>
                     </Magnetic>
 
@@ -306,22 +306,26 @@ function MainAppContent() {
                       <button
                         onClick={handleCTAWindows}
                         onMouseEnter={() => playHover()}
-                        className="group relative px-7 py-4 bg-white text-black rounded-full font-semibold transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.15)] flex items-center justify-center gap-2 cursor-pointer"
+                        className="group relative px-8 py-4 bg-white text-black rounded-full font-semibold overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_25px_rgba(255,255,255,0.2)] flex items-center justify-center gap-2.5 cursor-pointer border border-white/20"
                       >
-                        <Download className="w-4.5 h-4.5 text-black" />
+                        <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        <Download className="w-4.5 h-4.5 shrink-0" />
                         <span>Download for Windows</span>
                       </button>
                     </Magnetic>
 
                     {/* BUTTON 3: Download for Android */}
-                    <button
-                      onClick={handleCTAAndroid}
-                      onMouseEnter={() => playHover()}
-                      className="px-7 py-4 bg-white/[0.03] border border-white/10 backdrop-blur-xl rounded-full font-semibold hover:bg-white/[0.08] hover:border-white/20 hover:text-white hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
-                    >
-                      <Smartphone className="w-4.5 h-4.5 text-amber-400" />
-                      <span>Download for Android</span>
-                    </button>
+                    <Magnetic>
+                      <button
+                        onClick={handleCTAAndroid}
+                        onMouseEnter={() => playHover()}
+                        className="group relative px-8 py-4 bg-white/[0.05] border border-white/10 backdrop-blur-xl rounded-full font-semibold overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95 hover:bg-white/[0.1] hover:border-white/20 flex items-center justify-center gap-2.5 cursor-pointer"
+                      >
+                        <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        <Smartphone className="w-4.5 h-4.5 text-amber-400 shrink-0" />
+                        <span>Download for Android</span>
+                      </button>
+                    </Magnetic>
                   </motion.div>
 
                   {/* Specifications sub-bar */}
