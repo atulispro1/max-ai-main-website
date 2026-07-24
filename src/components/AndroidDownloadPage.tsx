@@ -32,8 +32,8 @@ export function AndroidDownloadPage({ onBackHome }: { onBackHome: () => void }) 
   const [downloadProgress, setDownloadProgress] = useState(0);
   const hasStartedRef = useRef(false);
 
-  const triggerDownload = useCallback(() => {
-    if (hasStartedRef.current) return;
+  const triggerDownload = useCallback((force = false) => {
+    if (hasStartedRef.current && !force) return;
 
     hasStartedRef.current = true;
     setDownloadStarted(true);
@@ -73,7 +73,7 @@ export function AndroidDownloadPage({ onBackHome }: { onBackHome: () => void }) 
 
   const handleManualDownload = () => {
     playClick();
-    triggerDownload();
+    triggerDownload(true);
   };
 
   const progress = downloadStarted ? downloadProgress : ((3 - countdown) / 3) * 100;
