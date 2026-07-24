@@ -150,7 +150,6 @@ function MainAppContent() {
           >
             <AndroidDownloadPage
               onBackHome={() => navigateToPage("home")}
-              onNavigateWindows={() => navigateToPage("download-windows")}
             />
           </motion.div>
         ) : (

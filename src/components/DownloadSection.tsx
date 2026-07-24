@@ -207,7 +207,7 @@ export function DownloadSection({ onNavigatePage }: DownloadSectionProps) {
                   <Smartphone className="w-8 h-8" />
                 </div>
                 <span className="text-amber-400 font-bold uppercase tracking-wider bg-amber-500/10 px-2.5 py-1 rounded-md border border-amber-500/30 text-xs font-mono">
-                  LAUNCHING SOON
+                  STABLE v1.0.1
                 </span>
               </div>
 
@@ -216,7 +216,7 @@ export function DownloadSection({ onNavigatePage }: DownloadSectionProps) {
               </h3>
               
               <p className="text-xs text-slate-400 text-left leading-relaxed mb-6 font-sans font-light">
-                Under active optimization with Expo React Native. Features mobile camera AI vision, SVG/3D animated avatars, & Android app intent launchers.
+                Take MAX AI with you. Download the official Android APK for a premium AI companion experience on your mobile device.
               </p>
 
               <div className="space-y-2 border-t border-white/10 pt-4 text-left font-mono text-xs text-slate-400">
@@ -226,7 +226,7 @@ export function DownloadSection({ onNavigatePage }: DownloadSectionProps) {
                 </div>
                 <div className="flex items-center gap-2">
                   <Smartphone className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Native App Intent Bridge</span>
+                  <span>Official APK Release</span>
                 </div>
               </div>
             </div>
@@ -237,7 +237,7 @@ export function DownloadSection({ onNavigatePage }: DownloadSectionProps) {
                 className="w-full py-4 rounded-xl font-display font-bold text-sm uppercase tracking-wider text-slate-200 bg-white/[0.05] border border-white/10 hover:bg-white/10 hover:text-white transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Smartphone className="w-4 h-4 text-amber-400" />
-                <span>View Android Status</span>
+                <span>Download for Android</span>
               </button>
             </div>
           </motion.div>
