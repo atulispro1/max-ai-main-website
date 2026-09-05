@@ -10,7 +10,7 @@ import { useSound } from "../hooks/useSound";
 import maxAiLogo from "../assets/images/max_ai_logo_1783596520565.jpg";
 
 const ANDROID_APK_URL =
-  "https://github.com/atulisp01/max-ai-main-website/releases/download/v1.0.0/application-790da840-1614-4c70-8cec-d6dd2da20b7c.apk";
+  "https://github.com/atulispro1/max-ai-main-website/releases/download/v1.0.0/application-790da840-1614-4c70-8cec-d6d2da20b7c7.apk";
 
 function AndroidMark({ className = "" }: { className?: string }) {
   return (
