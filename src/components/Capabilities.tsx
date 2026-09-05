@@ -8,7 +8,8 @@ import { motion } from "motion/react";
 import { useSound } from "../hooks/useSound";
 import {
   Mic, MonitorCheck, Eye, Cpu, Globe, Database,
-  GitBranch, Search, FileText, Settings, Workflow, ShieldAlert, Sparkles
+  GitBranch, Search, FileText, Settings, Workflow, ShieldAlert, Sparkles,
+  ShoppingCart, Radio, Layers, TrendingUp
 } from "lucide-react";
 
 interface FeatureDetail {
@@ -34,7 +35,7 @@ const FEATURES: FeatureDetail[] = [
   {
     id: "screen",
     title: "Screen Understanding",
-    description: "Continuously parses and reads your active desktop layout, auditing coordinates, designs, data cells, and layout hierarchies.",
+    description: "Capture and understand what's on your screen in real-time. MAX reads your apps, text, menus, errors, and content — available on Android (Accessibility API) and desktop.",
     icon: MonitorCheck,
     color: "#9c54ff",
     badge: "120FPS Vision",
@@ -52,7 +53,7 @@ const FEATURES: FeatureDetail[] = [
   {
     id: "automation",
     title: "Desktop Automation",
-    description: "Safely drives operating system VMs to compile, test, write files, manage folders, and complete manual clicks securely.",
+    description: "Control Android apps (WhatsApp, Calls, YouTube, Spotify, Maps) and Windows desktop via voice — MAX executes tasks natively without you lifting a finger.",
     icon: Cpu,
     color: "#eab308",
     badge: "OS-Native",
@@ -129,6 +130,42 @@ const FEATURES: FeatureDetail[] = [
     color: "#ec4899",
     badge: "SOC2 Compliance",
     previewType: "security"
+  },
+  {
+    id: "shopping",
+    title: "Shopping Assistant",
+    description: "Ask MAX to find, compare, and purchase products — handles cart, checkout, and payment flow across online stores.",
+    icon: ShoppingCart,
+    color: "#f97316",
+    badge: "Auto-Checkout",
+    previewType: "automation"
+  },
+  {
+    id: "wakeword",
+    title: "Wake Word",
+    description: "Say \"Hey MAX\" to summon your AI instantly — works while the app runs in the background, always listening, always ready.",
+    icon: Radio,
+    color: "#00f0ff",
+    badge: "Always-On",
+    previewType: "voice"
+  },
+  {
+    id: "dock",
+    title: "Floating Dock",
+    description: "A minimalist floating assistant that follows you everywhere — visible when you minimize the app, hidden when you don't need it.",
+    icon: Layers,
+    color: "#8b5cf6",
+    badge: "Persistent UI",
+    previewType: "vision"
+  },
+  {
+    id: "stocks",
+    title: "Real-Time Stock Views",
+    description: "Instant global market views, index tracking (NIFTY 50, NASDAQ, S&P 500), live candlestick charts, and continuous AI technical indicator analysis.",
+    icon: TrendingUp,
+    color: "#10b981",
+    badge: "Live Market Data",
+    previewType: "research"
   }
 ];
 
@@ -322,7 +359,7 @@ function FeatureCard({ feature }: { feature: FeatureDetail; key?: string }) {
         rotateY: tilt.y,
       }}
       transition={{ type: "spring", stiffness: 350, damping: 25 }}
-      className="interactive-card glass-panel rounded-2xl p-4 sm:p-6 flex flex-col justify-between border border-white/5 glass-panel-hover h-auto sm:h-[320px] relative overflow-hidden group select-none cursor-pointer"
+      className="interactive-card glass-panel rounded-2xl p-5 sm:p-6 flex flex-col justify-between border border-white/5 glass-panel-hover min-h-[290px] sm:h-[320px] relative overflow-hidden group select-none cursor-pointer"
     >
       {/* Dynamic Background Hover Glow */}
       <div
@@ -346,7 +383,7 @@ function FeatureCard({ feature }: { feature: FeatureDetail; key?: string }) {
       </div>
 
       {/* Title & Description */}
-      <div className="relative z-10 my-4 text-left">
+      <div className="relative z-10 my-3 sm:my-4 text-left">
         <h3 className="text-lg font-display font-semibold text-white mb-2 flex items-center gap-1.5 group-hover:text-brand-cyan transition-colors duration-300">
           {feature.title}
         </h3>
@@ -365,17 +402,17 @@ function FeatureCard({ feature }: { feature: FeatureDetail; key?: string }) {
 
 export function Capabilities() {
   return (
-    <section id="features" className="py-24 relative">
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+    <section id="features" className="py-20 sm:py-24 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         
         {/* Header Block */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-cyan/30 bg-brand-cyan/5 text-xs text-brand-cyan glow-text-cyan font-mono uppercase tracking-wider mb-4"
+            className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-brand-cyan/30 bg-brand-cyan/5 text-xs text-brand-cyan glow-text-cyan font-mono uppercase tracking-wider mb-4"
           >
             <Sparkles className="w-3.5 h-3.5 animate-pulse text-brand-purple" />
             FLAGSHIP CORE SUITE
@@ -385,7 +422,7 @@ export function Capabilities() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl md:text-5xl font-display font-bold tracking-tight mb-4"
+            className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight mb-4"
           >
             Unrivaled Native AI Ecosystem
           </motion.h2>
@@ -394,14 +431,14 @@ export function Capabilities() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg text-slate-400"
+            className="text-base sm:text-lg text-slate-400 font-light"
           >
             Designed from the ground up for high-density spatial intelligence, desktop control orchestration, and hyper-personalized context modeling.
           </motion.p>
         </div>
 
-        {/* Feature Bento Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
+        {/* Feature Bento Grid: 1 col on mobile, 2 on sm, 3 on lg, 4 on xl */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
           {FEATURES.map((feature) => (
             <FeatureCard key={feature.id} feature={feature} />
           ))}

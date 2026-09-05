@@ -75,6 +75,11 @@ export function Footer() {
                 </button>
               </li>
               <li>
+                <button onClick={() => handleNavClick("pricing")} onMouseEnter={playHover} className="hover:text-brand-cyan transition-colors duration-200 cursor-pointer">
+                  Pricing Plans
+                </button>
+              </li>
+              <li>
                 <button onClick={() => handleNavClick("demo")} onMouseEnter={playHover} className="hover:text-brand-cyan transition-colors duration-200 cursor-pointer">
                   Interactive Demo
                 </button>

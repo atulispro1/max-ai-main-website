@@ -6,7 +6,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { SoundProvider, useSound } from "./hooks/useSound";
-import { CustomCursor, Magnetic } from "./components/Cursor";
+import { CustomCursor, Magnetic, TouchRippleSystem } from "./components/Cursor";
 import { Backdrop } from "./components/Backdrop";
 import { Header } from "./components/Header";
 import { AICore } from "./components/AICore";
@@ -24,6 +24,7 @@ import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { WindowsDownloadPage } from "./components/WindowsDownloadPage";
 import { AndroidDownloadPage } from "./components/AndroidDownloadPage";
+import { PricingSection } from "./components/PricingSection";
 
 import { Terminal, ArrowRight, Download, ChevronDown, CheckCircle, Sparkles, Globe, Smartphone } from "lucide-react";
 import atulPhoto from "./assets/images/atul.png";
@@ -80,13 +81,13 @@ function MainAppContent() {
 
   // Subtitle scrolling tickers for Hero
   const COMPANION_ABILITIES = [
-    "talk in 24ms duplex audio",
-    "see and parse active window UI layouts",
-    "understand complex codebase designs",
-    "remember context across sessions",
-    "research and fetch citations",
     "control sandboxed VMs securely",
-    "automate background pipelines"
+    "show real-time stock market views & charts",
+    "automate apps across Android & Windows",
+    "understand your screen in real time",
+    "execute duplex voice with zero latency",
+    "automate WhatsApp, YouTube & Spotify",
+    "conduct deep autonomous research",
   ];
 
   useEffect(() => {
@@ -103,7 +104,7 @@ function MainAppContent() {
 
   const handleCTAWeb = () => {
     playClick();
-    window.open("https://max-ai-atulsapp.vercel.app/", "_blank", "noopener,noreferrer");
+    window.open("https://max-ai-atulapps.vercel.app/", "_blank", "noopener,noreferrer");
   };
 
   const handleCTAAndroid = () => {
@@ -113,8 +114,10 @@ function MainAppContent() {
 
   return (
     <div className="relative min-h-screen text-white overflow-hidden selection:bg-brand-purple/30 selection:text-brand-cyan">
-      {/* 1. Global Custom Cursor */}
+      {/* 1. Global Custom Cursor (desktop) */}
       <CustomCursor />
+      {/* 1b. Mobile Touch Ripple Animations */}
+      <TouchRippleSystem />
 
       {/* 2. Shimmering Backdrop Space */}
       <Backdrop />
@@ -160,10 +163,10 @@ function MainAppContent() {
             exit={{ opacity: 0 }}
           >
             {/* 5. HERO SECTION */}
-            <section className="min-h-screen pt-32 pb-16 flex items-center justify-center relative px-6 z-10 overflow-hidden">
+            <section className="min-h-screen pt-24 sm:pt-32 pb-12 flex flex-col justify-start lg:justify-center items-start lg:items-center relative px-5 sm:px-6 z-10 overflow-hidden">
               <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-              {/* Floating Widget Left */}
+              {/* Floating Widget Left — xl only */}
               <motion.div 
                 initial={{ opacity: 0, x: -50, rotate: -6 }}
                 animate={{ opacity: 1, x: 0, rotate: -4 }}
@@ -186,7 +189,7 @@ function MainAppContent() {
                 </div>
               </motion.div>
 
-              {/* Floating Widget Right */}
+              {/* Floating Widget Right — xl only */}
               <motion.div 
                 initial={{ opacity: 0, x: 50, rotate: 5 }}
                 animate={{ opacity: 1, x: 0, rotate: 3 }}
@@ -194,9 +197,7 @@ function MainAppContent() {
                 className="hidden xl:block absolute bottom-36 right-8 w-72 p-5 rounded-2xl bg-black/40 border border-white/10 backdrop-blur-3xl shadow-2xl select-none"
               >
                 <div className="flex items-center gap-3.5 mb-4">
-                  <div className="w-9 h-9 rounded-full bg-indigo-600 flex items-center justify-center text-lg shadow-[0_0_15px_rgba(79,70,229,0.5)]">
-                    ◈
-                  </div>
+                  <div className="w-9 h-9 rounded-full bg-indigo-600 flex items-center justify-center text-lg shadow-[0_0_15px_rgba(79,70,229,0.5)]">◈</div>
                   <div>
                     <div className="text-xs font-bold font-display uppercase tracking-wider text-slate-200">MAX VOICE</div>
                     <div className="text-[10px] text-gray-500 uppercase tracking-widest font-mono">Active Listening</div>
@@ -211,38 +212,39 @@ function MainAppContent() {
                 </div>
               </motion.div>
 
-              <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+              <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start lg:items-center">
                 
                 {/* Hero Left Content */}
-                <div className="lg:col-span-7 flex flex-col items-start text-left relative">
+                {/* Hero Left Content — Left-aligned matching user reference */}
+                <div className="lg:col-span-7 flex flex-col items-start text-left relative max-w-xl w-full">
                   
                   {/* Creator badge */}
                   <motion.div
                     initial={{ opacity: 0, y: -15 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur-md mb-4 select-none hover:border-indigo-500/20 transition-all duration-300"
+                    className="flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur-md mb-2.5 select-none hover:border-indigo-500/20 transition-all duration-300"
                   >
                     <img
                       src={atulPhoto}
                       alt="Atul Sharma"
                       referrerPolicy="no-referrer"
-                      className="w-5.5 h-5.5 rounded-full object-cover border border-white/20"
+                      className="w-5 h-5 rounded-full object-cover border border-white/20"
                     />
-                    <span className="text-[11px] text-slate-300 font-sans tracking-wide">
-                      Created by <strong className="text-white font-medium">Atul Sharma</strong>
+                    <span className="text-xs text-slate-300 font-sans tracking-wide">
+                      Created by <strong className="text-white font-semibold">Atul Sharma</strong>
                     </span>
                   </motion.div>
 
-                  {/* Flagship badge */}
+                  {/* Flagship badge (Matching user screenshot) */}
                   <motion.div
                     initial={{ opacity: 0, y: -15 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.05 }}
-                    className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-[10px] uppercase tracking-[0.2em] font-bold text-indigo-300 mb-6 hover:border-indigo-400/40 transition-colors duration-300"
+                    className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-[11px] font-mono tracking-[0.18em] font-bold text-indigo-300 uppercase mb-5 hover:border-indigo-400/40 transition-colors duration-300 shadow-[0_0_15px_rgba(99,102,241,0.2)]"
                   >
-                    <Sparkles className="w-3.5 h-3.5 text-indigo-400 animate-pulse" />
-                    Next Gen OS v2.6
+                    <Sparkles className="w-3.5 h-3.5 text-indigo-400 animate-pulse shrink-0" />
+                    <span>NEXT GEN OS V2.6</span>
                   </motion.div>
 
                   {/* Title */}
@@ -250,9 +252,9 @@ function MainAppContent() {
                     initial={{ opacity: 0, y: 25 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.1 }}
-                    className="text-6xl sm:text-7xl md:text-8xl font-display font-bold tracking-tighter leading-[0.9] mb-6"
+                    className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold tracking-tight text-white mb-4 drop-shadow-[0_0_40px_rgba(99,102,241,0.25)] text-left"
                   >
-                    Meet <span className="bg-gradient-to-b from-white via-slate-200 to-gray-400 bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(99,102,241,0.3)]">Max AI</span>
+                    Meet Max AI
                   </motion.h1>
 
                   {/* Subtitle ticker */}
@@ -260,17 +262,17 @@ function MainAppContent() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.25 }}
-                    className="text-lg md:text-xl text-slate-400 font-sans font-light leading-relaxed max-w-xl mb-10 h-[56px] relative overflow-hidden"
+                    className="text-base sm:text-lg md:text-xl text-slate-300 font-sans font-light leading-relaxed max-w-xl mb-7 min-h-[56px] relative overflow-hidden text-left"
                   >
                     <span>The first intelligent operating system that can </span>
-                    <div className="inline-block font-semibold text-indigo-300 glow-text-cyan underline decoration-indigo-500/20">
+                    <div className="inline-block font-semibold text-cyan-300 glow-text-cyan">
                       <AnimatePresence mode="wait">
                         <motion.span
                           key={tickerIndex}
-                          initial={{ y: 22, opacity: 0 }}
+                          initial={{ y: 15, opacity: 0 }}
                           animate={{ y: 0, opacity: 1 }}
-                          exit={{ y: -22, opacity: 0 }}
-                          transition={{ duration: 0.45, ease: "easeInOut" }}
+                          exit={{ y: -15, opacity: 0 }}
+                          transition={{ duration: 0.4, ease: "easeInOut" }}
                           className="inline-block"
                         >
                           {COMPANION_ABILITIES[tickerIndex]}
@@ -279,74 +281,65 @@ function MainAppContent() {
                     </div>
                   </motion.div>
 
-                  {/* Hero CTA Buttons */}
+                  {/* Hero CTA Buttons — left-aligned pill buttons stacked on mobile, row on sm+ */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.35 }}
-                    className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto pt-2"
+                    className="flex flex-col sm:flex-row items-start sm:items-center gap-3.5 sm:gap-4 w-full sm:w-auto pt-1"
                   >
-                    {/* BUTTON 1: Use on Web (Most highlighted) */}
-                    <Magnetic>
-                      <button
-                        onClick={handleCTAWeb}
-                        onMouseEnter={() => playHover()}
-                        className="group relative px-8 py-4 bg-gradient-to-r from-indigo-500 via-purple-600 to-orange-500 text-white rounded-full font-bold overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_35px_rgba(99,102,241,0.4)] flex items-center justify-center gap-2.5 cursor-pointer border border-white/10"
-                      >
-                        <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        <Globe className="w-4.5 h-4.5 shrink-0" />
-                        <span>Use on Web</span>
-                        <Sparkles className="w-3.5 h-3.5 text-cyan-300 animate-pulse shrink-0" />
-                      </button>
-                    </Magnetic>
+                    {/* BUTTON 1: Use on Web */}
+                    <button
+                      onClick={handleCTAWeb}
+                      className="group relative w-auto px-7 py-3.5 bg-gradient-to-r from-[#6366f1] via-[#a855f7] to-[#f97316] text-white rounded-full font-bold text-sm sm:text-base overflow-hidden transition-all duration-300 active:scale-95 shadow-[0_0_35px_rgba(168,85,247,0.45)] flex items-center justify-center gap-2.5 cursor-pointer border border-white/20 hover:shadow-[0_0_45px_rgba(249,115,22,0.5)]"
+                    >
+                      <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <Globe className="w-5 h-5 shrink-0" />
+                      <span>Use on Web</span>
+                      <Sparkles className="w-4 h-4 text-cyan-200 animate-pulse shrink-0" />
+                    </button>
 
                     {/* BUTTON 2: Download for Windows */}
-                    <Magnetic>
-                      <button
-                        onClick={handleCTAWindows}
-                        onMouseEnter={() => playHover()}
-                        className="group relative px-8 py-4 bg-white text-black rounded-full font-semibold overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_25px_rgba(255,255,255,0.2)] flex items-center justify-center gap-2.5 cursor-pointer border border-white/20"
-                      >
-                        <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        <Download className="w-4.5 h-4.5 shrink-0" />
-                        <span>Download for Windows</span>
-                      </button>
-                    </Magnetic>
+                    <button
+                      onClick={handleCTAWindows}
+                      className="group relative w-auto px-7 py-3.5 bg-white text-black rounded-full font-bold text-sm sm:text-base overflow-hidden transition-all duration-300 active:scale-95 shadow-[0_0_25px_rgba(255,255,255,0.3)] flex items-center justify-center gap-2.5 cursor-pointer border border-white hover:bg-slate-100"
+                    >
+                      <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <Download className="w-5 h-5 shrink-0 text-black" />
+                      <span>Download for Windows</span>
+                    </button>
 
                     {/* BUTTON 3: Download for Android */}
-                    <Magnetic>
-                      <button
-                        onClick={handleCTAAndroid}
-                        onMouseEnter={() => playHover()}
-                        className="group relative px-8 py-4 bg-white/[0.05] border border-white/10 backdrop-blur-xl rounded-full font-semibold overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95 hover:bg-white/[0.1] hover:border-white/20 flex items-center justify-center gap-2.5 cursor-pointer"
-                      >
-                        <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        <Smartphone className="w-4.5 h-4.5 text-amber-400 shrink-0" />
-                        <span>Download for Android</span>
-                      </button>
-                    </Magnetic>
+                    <button
+                      onClick={handleCTAAndroid}
+                      className="group relative w-auto px-7 py-3.5 bg-white/[0.05] border border-white/10 backdrop-blur-xl rounded-full font-semibold text-sm sm:text-base text-white overflow-hidden transition-all duration-300 active:scale-95 hover:bg-white/[0.1] hover:border-white/20 flex items-center justify-center gap-2.5 cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
+                    >
+                      <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <Smartphone className="w-5 h-5 text-amber-400 shrink-0" />
+                      <span>Download for Android</span>
+                    </button>
                   </motion.div>
 
-                  {/* Specifications sub-bar */}
+                  {/* Spec sub-bar (Matching user screenshot) */}
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.6, delay: 0.5 }}
-                    className="mt-8 flex items-center gap-4 text-[10px] font-mono text-slate-500 uppercase tracking-widest"
+                    className="mt-6 flex items-center justify-start gap-2.5 text-[11px] font-mono text-cyan-400/80 uppercase tracking-[0.2em]"
                   >
-                    <span>Build v1.0.0 Release</span>
-                    <span>•</span>
-                    <span>AES-256 localVM</span>
+                    <span>BUILD V1.0.0 RELEASE</span>
+                    <span className="text-slate-600">•</span>
+                    <span>AES-256 LOCALVM</span>
                   </motion.div>
 
                 </div>
 
-                {/* Hero Right: 3D Robot GLB Canvas */}
+                {/* Hero Right: 3D Robot — taller and larger on mobile */}
                 <motion.div
                   initial={{ opacity: 0, scale: 0.85 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 1.0, ease: "easeOut" }}
-                  className="lg:col-span-5 h-[420px] md:h-[550px] flex items-center justify-center relative"
+                  className="lg:col-span-5 h-[380px] sm:h-[440px] md:h-[500px] lg:h-[560px] flex items-center justify-center relative w-full mt-4 lg:mt-0"
                 >
                   <AICore scrollProgress={scrollProgress} />
                 </motion.div>
@@ -355,7 +348,7 @@ function MainAppContent() {
 
               {/* Scroll down indicator */}
               <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 opacity-60">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500">SCROLL DOWN</span>
+                <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 hidden sm:block">SCROLL DOWN</span>
                 <motion.div
                   animate={{ y: [0, 8, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
@@ -388,9 +381,10 @@ function MainAppContent() {
             {/* 11. WHY MAX */}
             <WhyMax />
 
-            <FounderSection />
+            {/* 12. PRICING SECTION */}
+            <PricingSection onNavigatePage={navigateToPage} />
 
-            {/* 14. UPGRADED FAQ SECTION */}
+            {/* 13. UPGRADED FAQ SECTION */}
             <FAQ />
 
             {/* 15. DOWNLOADS SECTION */}

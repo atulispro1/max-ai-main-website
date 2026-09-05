@@ -10,7 +10,7 @@ import { Magnetic } from "./Cursor";
 import { Download, Monitor, Smartphone, CheckCircle, RefreshCw, Cpu, Database, Info, Globe, ShieldCheck, ArrowRight } from "lucide-react";
 
 const DIRECT_WINDOWS_DOWNLOAD_URL = "https://github.com/atulispro1/max-ai-main-website/releases/latest/download/Max.AI.Setup.1.0.0.exe";
-const DIRECT_WEB_URL = "https://max-ai-atulsapp.vercel.app/";
+const DIRECT_WEB_URL = "https://max-ai-atulapps.vercel.app/";
 
 interface DownloadSectionProps {
   onNavigatePage?: (page: "home" | "download-windows" | "download-android") => void;

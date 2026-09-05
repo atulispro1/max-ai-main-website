@@ -82,6 +82,25 @@ const PRESETS: DemoPreset[] = [
       tag: "OS Agent",
       status: "Staging URL Active: ais-dev-g7...",
     }
+  },
+  {
+    id: "stocks",
+    tabLabel: "Live Stock Market",
+    promptText: "Show me real-time stock market views for NIFTY 50 and tech leaders with key support levels.",
+    thinkingLogs: [
+      "Connecting to real-time financial market exchange streams...",
+      "Aggregating live ticker data for NIFTY 50, NASDAQ & S&P 500...",
+      "Computing moving averages (EMA-20, EMA-50) and RSI indicators...",
+      "Generating high-conviction breakout & key support levels...",
+    ],
+    responseTitle: "Max Market Intelligence",
+    responseText: "Market View: NIFTY 50 is trading at 25,124 (+0.64%) testing resistance at 25,200 with heavy institutional volume. In US tech, NVDA is up +2.8% at $128.40 showing strong bullish momentum above the 20-day EMA, while AAPL holds support at $226. RSI across megacap tech stands at 61.2 (healthy bull zone). No macro divergences detected.",
+    mockUIContent: {
+      title: "Real-Time Market Terminal",
+      description: "NIFTY: 25,124 (+0.64%) | NVDA: $128.40 (+2.8%)",
+      tag: "Live Finance Feed",
+      status: "Bullish Trend Confirmed • Low Volatility",
+    }
   }
 ];
 
@@ -196,8 +215,8 @@ export function InteractiveDemo() {
       <div className="absolute top-[40%] right-[-10%] w-[400px] h-[400px] rounded-full bg-brand-cyan/5 blur-[120px]" />
       <div className="absolute bottom-[10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-brand-purple/5 blur-[130px]" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -213,7 +232,7 @@ export function InteractiveDemo() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl md:text-5xl font-display font-bold tracking-tight mb-4"
+            className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight mb-4"
           >
             Experience Max AI in Action
           </motion.h2>
@@ -279,7 +298,7 @@ export function InteractiveDemo() {
               </div>
 
               {/* Dynamic Mock UI Panel */}
-              <div className="p-8 flex-1 flex flex-col justify-between relative bg-slate-950/20 overflow-hidden min-h-[350px]">
+              <div className="p-4 sm:p-8 flex-1 flex flex-col justify-between relative bg-slate-950/20 overflow-hidden min-h-[320px] sm:min-h-[350px]">
                 {/* Visual Scanning Holographic Overlay */}
                 <AnimatePresence>
                   {demoState === "scanning" && (
@@ -372,7 +391,7 @@ export function InteractiveDemo() {
 
           {/* Right panel: Conversational Terminal with thinking states & Waveform output */}
           <div className="lg:col-span-5 flex flex-col">
-            <div className="glass-panel rounded-2xl overflow-hidden flex-1 flex flex-col border border-white/5 bg-slate-950/60 p-6 relative">
+            <div className="glass-panel rounded-2xl overflow-hidden flex-1 flex flex-col border border-white/5 bg-slate-950/60 p-4 sm:p-6 relative">
               {/* Inner conversational content */}
               <div className="flex-1 flex flex-col justify-between">
                 {/* 1. Prompt / User speech input representation */}

@@ -37,10 +37,10 @@ export function FounderSection() {
       <div className="absolute top-[30%] left-[5%] w-[500px] h-[500px] rounded-full bg-indigo-600/10 blur-[140px] -z-10 pointer-events-none" />
       <div className="absolute bottom-[20%] right-[5%] w-[450px] h-[450px] rounded-full bg-orange-600/10 blur-[130px] -z-10 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 sm:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -55,7 +55,7 @@ export function FounderSection() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-display font-bold tracking-tight mb-4 text-white"
+            className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight mb-4 text-white"
           >
             Behind the Creation of Max AI
           </motion.h2>

@@ -21,6 +21,11 @@ export function AICore({ scrollProgress = 0, interactive = true }: AICoreProps) 
   const [loading, setLoading] = useState(true);
 
   const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
+  const scrollProgressRef = useRef(scrollProgress);
+
+  useEffect(() => {
+    scrollProgressRef.current = scrollProgress;
+  }, [scrollProgress]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -29,12 +34,14 @@ export function AICore({ scrollProgress = 0, interactive = true }: AICoreProps) 
     const width = container.clientWidth || 550;
     const height = container.clientHeight || 550;
 
+    const isMobile = window.innerWidth < 768;
+
     // 1. Scene setup
     const scene = new THREE.Scene();
 
-    // 2. Camera setup
+    // 2. Camera setup - closer on mobile to make the robot visually larger
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-    camera.position.set(0, 0, 8);
+    camera.position.set(0, 0, isMobile ? 6.4 : 7.8);
 
     // 3. Renderer setup
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
@@ -43,26 +50,34 @@ export function AICore({ scrollProgress = 0, interactive = true }: AICoreProps) 
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.25;
+    renderer.toneMappingExposure = 1.45;
 
     // Append Three.js canvas alongside React-rendered children
     container.appendChild(renderer.domElement);
 
-    // 4. Lighting setup (Studio Glow & Dynamic Lighting)
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+    // 4. Lighting setup (Studio Glow, Vibrant Key Lights & Neon Rims)
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.8);
     scene.add(ambientLight);
 
-    const mainLight = new THREE.DirectionalLight(0x6366f1, 3.5); // Indigo main light
-    mainLight.position.set(5, 5, 5);
+    const frontKeyLight = new THREE.DirectionalLight(0xffffff, 3.2); // White front key
+    frontKeyLight.position.set(2, 4, 6);
+    scene.add(frontKeyLight);
+
+    const mainLight = new THREE.DirectionalLight(0x818cf8, 4.0); // Indigo main light
+    mainLight.position.set(6, 4, 4);
     scene.add(mainLight);
 
-    const cyanRimLight = new THREE.DirectionalLight(0x00f0ff, 4.0); // Cyan rim light
-    cyanRimLight.position.set(-5, 3, -4);
+    const cyanRimLight = new THREE.DirectionalLight(0x00f0ff, 4.8); // Cyan rim light
+    cyanRimLight.position.set(-5, 4, -4);
     scene.add(cyanRimLight);
 
-    const orangeAccentLight = new THREE.PointLight(0xf97316, 3.0, 10); // Orange glowing core
-    orangeAccentLight.position.set(0, -1, 2);
+    const orangeAccentLight = new THREE.PointLight(0xf97316, 4.5, 12); // Orange glowing core
+    orangeAccentLight.position.set(0, -1.5, 2.5);
     scene.add(orangeAccentLight);
+
+    const violetTopLight = new THREE.PointLight(0xa855f7, 3.5, 10);
+    violetTopLight.position.set(0, 4, 1);
+    scene.add(violetTopLight);
 
     // 5. Create Holographic Orbiting Rings
     const createRing = (radius: number, colorHex: number, tiltX: number, tiltY: number) => {
@@ -84,9 +99,10 @@ export function AICore({ scrollProgress = 0, interactive = true }: AICoreProps) 
       return ring;
     };
 
-    const ring1 = createRing(2.2, 0x00f0ff, Math.PI / 3, Math.PI / 6);
-    const ring2 = createRing(2.6, 0x8b5cf6, -Math.PI / 4, Math.PI / 4);
-    const ring3 = createRing(3.0, 0xff2a85, Math.PI / 6, -Math.PI / 3);
+    const ringScale = isMobile ? 1.2 : 1.0;
+    const ring1 = createRing(2.2 * ringScale, 0x00f0ff, Math.PI / 3, Math.PI / 6);
+    const ring2 = createRing(2.6 * ringScale, 0x8b5cf6, -Math.PI / 4, Math.PI / 4);
+    const ring3 = createRing(3.0 * ringScale, 0xff2a85, Math.PI / 6, -Math.PI / 3);
 
     // 6. Particle Field System (fewer on mobile for performance)
     const particleCount = window.innerWidth < 768 ? 80 : 250;
@@ -141,11 +157,12 @@ export function AICore({ scrollProgress = 0, interactive = true }: AICoreProps) 
         const size = box.getSize(new THREE.Vector3());
 
         const maxDim = Math.max(size.x, size.y, size.z);
-        const scale = 2.4 / maxDim;
+        const baseScale = isMobile ? 3.1 : 2.5;
+        const scale = baseScale / maxDim;
         model.scale.set(scale, scale, scale);
         model.position.sub(center.multiplyScalar(scale));
 
-        // Enhance materials
+        // Enhance materials (futuristic metallic finish + electric emissive highlights)
         model.traverse((child) => {
           if ((child as THREE.Mesh).isMesh) {
             const mesh = child as THREE.Mesh;
@@ -153,9 +170,19 @@ export function AICore({ scrollProgress = 0, interactive = true }: AICoreProps) 
             mesh.receiveShadow = true;
 
             if (mesh.material) {
-              const mat = mesh.material as THREE.MeshStandardMaterial;
-              mat.metalness = Math.max(0.4, mat.metalness || 0.5);
-              mat.roughness = Math.min(0.4, mat.roughness || 0.3);
+              const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+              mats.forEach((m) => {
+                const mat = m as THREE.MeshStandardMaterial;
+                if (mat) {
+                  mat.metalness = THREE.MathUtils.clamp(mat.metalness ? mat.metalness * 1.25 : 0.7, 0.45, 0.92);
+                  mat.roughness = THREE.MathUtils.clamp(mat.roughness ? mat.roughness * 0.7 : 0.22, 0.12, 0.45);
+                  mat.envMapIntensity = 2.4;
+                  if (mat.emissive && (mat.emissive.r > 0 || mat.emissive.g > 0 || mat.emissive.b > 0)) {
+                    mat.emissiveIntensity = 2.8;
+                  }
+                  mat.needsUpdate = true;
+                }
+              });
             }
           }
         });
@@ -198,6 +225,7 @@ export function AICore({ scrollProgress = 0, interactive = true }: AICoreProps) 
       const w = container.clientWidth;
       const h = container.clientHeight;
       camera.aspect = w / h;
+      camera.position.z = window.innerWidth < 768 ? 6.4 : 7.8;
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
     };
@@ -230,8 +258,8 @@ export function AICore({ scrollProgress = 0, interactive = true }: AICoreProps) 
 
         // Robot floating & rotation tracking
         if (robotGroup) {
-          // Floating sinusoidal hover
-          robotGroup.position.y = Math.sin(elapsedTime * 1.8) * 0.12 + Math.sin(scrollProgress * Math.PI) * 0.3;
+          // Smooth floating sinusoidal hover + scroll reaction without remounting
+          robotGroup.position.y = Math.sin(elapsedTime * 1.8) * 0.12 + Math.sin(scrollProgressRef.current * Math.PI) * 0.25;
           
           // Interactive tilt towards mouse/finger
           robotGroup.rotation.y = mx * 0.6 + Math.sin(elapsedTime * 0.5) * 0.1;
@@ -270,7 +298,7 @@ export function AICore({ scrollProgress = 0, interactive = true }: AICoreProps) 
       }
       renderer.dispose();
     };
-  }, [scrollProgress]);
+  }, []);
 
   return (
     <div

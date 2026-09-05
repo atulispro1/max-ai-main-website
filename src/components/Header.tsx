@@ -97,6 +97,9 @@ export function Header({ onNavigateDownloadWindows }: HeaderProps) {
           <button onClick={() => handleNavClick("features")} onMouseEnter={playHover} className="px-3.5 py-2 rounded-lg hover:bg-white/[0.06] hover:text-white transition-all duration-200 cursor-pointer">
             Features
           </button>
+          <button onClick={() => handleNavClick("pricing")} onMouseEnter={playHover} className="px-3.5 py-2 rounded-lg hover:bg-white/[0.06] hover:text-white transition-all duration-200 cursor-pointer">
+            Pricing
+          </button>
           <button onClick={() => handleNavClick("comparison")} onMouseEnter={playHover} className="px-3.5 py-2 rounded-lg hover:bg-white/[0.06] hover:text-white transition-all duration-200 cursor-pointer">
             Comparison
           </button>
@@ -191,6 +194,15 @@ export function Header({ onNavigateDownloadWindows }: HeaderProps) {
                 <span className="flex items-center gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-brand-purple" />
                   All Features
+                </span>
+              </button>
+              <button
+                onClick={() => handleNavClick("pricing")}
+                className="text-left px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.06] text-sm font-semibold cursor-pointer transition-all"
+              >
+                <span className="flex items-center gap-3">
+                  <span className="w-1.5 h-1.5 rounded-full bg-yellow-400" />
+                  Pricing
                 </span>
               </button>
               <button

@@ -31,13 +31,13 @@ const FAQ_ITEMS: FAQItem[] = [
   {
     id: "f3",
     question: "What is the status of the Android Application release?",
-    answer: "The Max AI Android app is built with Expo React Native and is under active development. It features custom SVG/3D animated robot avatars, mobile camera AI vision, local MMKV high-speed memory, and native Android app intent launchers (YouTube, Maps, Settings). It will be available for download soon!",
+    answer: "The Max AI Android app is officially live and available for download! It is built with Expo React Native and features a custom 3D animated robot avatar, mobile camera AI vision, Screen Understanding (via Accessibility API), local MMKV high-speed memory, native Android app automation (WhatsApp, Phone Calls, YouTube, Spotify, Maps, Settings, etc.), Voice Mode with Gemini Live, Wake Word detection, Background Voice Mode, and a Floating Dock assistant.",
     category: "android",
   },
   {
     id: "f4",
     question: "Can I use Max AI directly on the Web without installing anything?",
-    answer: "Yes! You can use Max AI directly in your browser at https://max-ai-atulsapp.vercel.app/. The web version supports Gemini 3.1 Flash/Pro chat, WebSocket Live Voice mode, document parsing, and Supabase cloud memory synchronization.",
+    answer: "Yes! You can use Max AI directly in your browser at https://max-ai-atulapps.vercel.app/. The web version supports Gemini Flash/Pro chat, WebSocket Live Voice mode, document parsing, image/camera vision, and Supabase cloud memory synchronization.",
     category: "web",
   },
   {
@@ -66,8 +66,8 @@ const FAQ_ITEMS: FAQItem[] = [
   },
   {
     id: "f9",
-    question: "Is Max AI free to download and use?",
-    answer: "Yes! Max AI v1.0.0 is officially released and free to download for Windows. The direct installer package is hosted securely on GitHub release assets.",
+    question: "What are the pricing plans for Max AI?",
+    answer: "Max AI offers two simple plans: a 7-Day Trial for ₹99 that gives you full access to all features for one week, and a Lifetime plan for ₹499 that gives you permanent unlimited access to all current and future features. Both plans include AI Chat, Voice Mode, Screen Understanding, Android & Desktop automation, Deep Research, Memory, and everything else.",
     category: "general",
   },
   {
@@ -78,7 +78,7 @@ const FAQ_ITEMS: FAQItem[] = [
   },
 ];
 
-function FAQAccordionItem({ item, isOpen, toggleOpen }: { item: FAQItem; isOpen: boolean; toggleOpen: () => void }) {
+function FAQAccordionItem({ item, isOpen, toggleOpen }: { key?: string | number; item: FAQItem; isOpen: boolean; toggleOpen: () => void }) {
   const { playHover, playClick } = useSound();
 
   const handleToggle = () => {

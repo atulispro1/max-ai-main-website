@@ -55,10 +55,10 @@ export function WhyMax() {
       {/* Visual background accents */}
       <div className="absolute top-[20%] left-[-10%] w-[350px] h-[350px] rounded-full bg-brand-pink/5 blur-[120px]" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         
         {/* Header block */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -74,7 +74,7 @@ export function WhyMax() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl md:text-5xl font-display font-bold tracking-tight mb-4"
+            className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight mb-4"
           >
             The Generational Leap
           </motion.h2>
@@ -83,7 +83,7 @@ export function WhyMax() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg text-slate-400"
+            className="text-base sm:text-lg text-slate-400 font-light"
           >
             Stop typing commands into flat chat windows. Max AI integrates directly into your native OS, bringing continuous execution and spatial perception.
           </motion.p>
@@ -92,8 +92,8 @@ export function WhyMax() {
         {/* Comparison grid wrapper */}
         <div className="max-w-5xl mx-auto glass-panel rounded-3xl border border-white/5 overflow-hidden bg-slate-950/40 relative">
           
-          {/* Header Row */}
-          <div className="grid grid-cols-1 md:grid-cols-12 border-b border-white/5 bg-[#0b0821] p-6 text-sm font-mono tracking-widest font-bold uppercase text-slate-400 gap-4">
+          {/* Header Row - Hidden on mobile, visible on md+ */}
+          <div className="hidden md:grid md:grid-cols-12 border-b border-white/5 bg-[#0b0821] p-6 text-sm font-mono tracking-widest font-bold uppercase text-slate-400 gap-4">
             <div className="md:col-span-4 text-left flex items-center gap-2">
               <Zap className="w-4 h-4 text-brand-cyan" /> CRITERIA_METRIC
             </div>
@@ -115,13 +115,13 @@ export function WhyMax() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.08 }}
                 onMouseEnter={() => playHover()}
-                className={`grid grid-cols-1 md:grid-cols-12 p-6 gap-4 items-center transition-all duration-300 hover:bg-white/[0.015] ${
+                className={`grid grid-cols-1 md:grid-cols-12 p-5 sm:p-6 gap-3 sm:gap-4 items-center transition-all duration-300 hover:bg-white/[0.015] ${
                   row.isImportant ? "relative bg-brand-purple/[0.01]" : ""
                 }`}
               >
                 {/* Criteria */}
                 <div className="md:col-span-4 text-left">
-                  <span className="font-display font-semibold text-white block">
+                  <span className="font-display font-semibold text-white block text-base sm:text-lg">
                     {row.criteria}
                   </span>
                   {row.isImportant && (
@@ -136,7 +136,10 @@ export function WhyMax() {
                   <div className="w-5 h-5 rounded-full bg-rose-500/10 border border-rose-500/20 flex items-center justify-center shrink-0 mt-0.5">
                     <X className="w-3 h-3 text-rose-500" />
                   </div>
-                  <span>{row.traditional}</span>
+                  <div>
+                    <span className="md:hidden text-[10px] font-mono text-rose-400/80 uppercase block font-semibold mb-0.5">Traditional Chatbot</span>
+                    <span>{row.traditional}</span>
+                  </div>
                 </div>
 
                 {/* Max AI */}
@@ -144,9 +147,12 @@ export function WhyMax() {
                   <div className="w-5 h-5 rounded-full bg-brand-cyan/10 border border-brand-cyan/30 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,240,255,0.15)]">
                     <Check className="w-3 h-3 text-brand-cyan font-extrabold" />
                   </div>
-                  <span className="text-white group-hover:text-brand-cyan transition-colors duration-300">
-                    {row.max}
-                  </span>
+                  <div>
+                    <span className="md:hidden text-[10px] font-mono text-brand-cyan uppercase block font-semibold mb-0.5">MAX AI OS Native</span>
+                    <span className="text-white group-hover:text-brand-cyan transition-colors duration-300">
+                      {row.max}
+                    </span>
+                  </div>
                 </div>
               </motion.div>
             ))}
