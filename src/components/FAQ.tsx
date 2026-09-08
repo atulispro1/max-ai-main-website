@@ -37,7 +37,7 @@ const FAQ_ITEMS: FAQItem[] = [
   {
     id: "f4",
     question: "Can I use Max AI directly on the Web without installing anything?",
-    answer: "Yes! You can use Max AI directly in your browser at https://max-ai-atulapps.vercel.app/. The web version supports Gemini Flash/Pro chat, WebSocket Live Voice mode, document parsing, image/camera vision, and Supabase cloud memory synchronization.",
+    answer: "Yes! You can use Max AI directly in your browser at https://max-ai-atulsapp.vercel.app/. The web version supports Gemini Flash/Pro chat, WebSocket Live Voice mode, document parsing, image/camera vision, and Supabase cloud memory synchronization.",
     category: "web",
   },
   {

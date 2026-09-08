@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { useSound } from "../hooks/useSound";
 import { Download, Monitor, ShieldCheck, CheckCircle, RefreshCw, ArrowLeft, AlertCircle, FileCheck, Sparkles, Cpu } from "lucide-react";
 
-const DIRECT_INSTALLER_URL = "https://github.com/atulispro1/max-ai-main-website/releases/latest/download/Max.AI.Setup.1.0.0.exe";
+const DIRECT_INSTALLER_URL = "https://github.com/atulispro1/max-ai-main-website/releases/download/v2.0.0/Max.AI.Setup.1.0.0.exe";
 
 export function WindowsDownloadPage({ onBackHome }: { onBackHome: () => void }) {
   const { playHover, playClick, playSuccess } = useSound();

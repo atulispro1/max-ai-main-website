@@ -104,7 +104,7 @@ function MainAppContent() {
 
   const handleCTAWeb = () => {
     playClick();
-    window.open("https://max-ai-atulapps.vercel.app/", "_blank", "noopener,noreferrer");
+    window.open("https://max-ai-atulsapp.vercel.app/", "_blank", "noopener,noreferrer");
   };
 
   const handleCTAAndroid = () => {
